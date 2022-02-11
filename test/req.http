@@ -1,0 +1,107 @@
+POST http://localhost:9000/api/v1/products HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+}
+
+###
+
+GET http://localhost:9000/api/v1/products HTTP/1.1
+
+
+###
+
+GET http://localhost:9000/api/v1/products/3 HTTP/1.1
+
+###
+
+PATCH http://localhost:9000/api/v1/products/2 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+}
+
+### USERS ###
+
+GET http://localhost:9000/api/v1/users?sort=firstName&page=2&limit=4 HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:9000/api/v1/users HTTP/1.1
+content-type: application/json
+
+{
+   "firstName": "Velizar5",
+   "lastName": "Stoyanov",
+   "email": "velliboy@yahoo.com",
+   "password": "pass123123",
+   "passwordConfirm": "pass123123",
+   "imageUrl": "avatar_photo",
+   "roles": "ADMIN"
+}
+
+###
+
+GET http://localhost:9000/api/v1/users HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTE0YzJiZDcwNTNhMTdmNWMzMjdjZCIsImlhdCI6MTY0MjE1NTA1MSwiZXhwIjoxNjQyMjQxNDUxfQ.iGUZXd29MOQ_TjZGOL8tDaOby9I2si6B7kT-72nSQqY
+
+###
+
+PATCH http://localhost:9000/api/v1/users/61df7ac7b3b8c6f058736cb4 HTTP/1.1
+content-type: application/json
+
+{
+   "firstName": "Velizar",
+   "lastName": "Stoyanov22",
+   "email": "velliboy@yahoo.com",
+   "password": "sgasgsdgasgd",
+   "imageUrl": "aAAAvatar_photo",
+   "roles": 0
+}
+
+###
+
+DELETE http://localhost:9000/api/v1/users/61e01b512f94a9a96ad68238 HTTP/1.1
+content-type: application/json
+
+
+###
+
+POST http://localhost:9000/api/v1/users/signup HTTP/1.1
+content-type: application/json
+
+{
+   "firstName": "Velizar",
+   "lastName": "Stoyanov22",
+   "email": "velizaio@yahoo.com",
+   "password": "pass12345",
+   "passwordConfirm": "pass12345",
+   "imageUrl": "aAAAvatar_photo",
+   "roles": [0]
+}
+
+###
+
+POST http://localhost:9000/api/v1/users/login HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTE0YzJiZDcwNTNhMTdmNWMzMjdjZCIsImlhdCI6MTY0MjE1NTA1MSwiZXhwIjoxNjQyMjQxNDUxfQ.iGUZXd29MOQ_TjZGOL8tDaOby9I2si6B7kT-72nSQqY
+
+{
+   "email": "velizaio@yahoo.com",
+   "password": "pass12345"
+
+}
+
+
+
+###
+
+DELETE http://localhost:9000/api/v1/users/61e14741c697595f1802dca9 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTE0ZGVmNTM4NmNhYTQ0NmNlZGI4ZiIsImlhdCI6MTY0MjE1NTUwMywiZXhwIjoxNjQyMjQxOTAzfQ.njF_hjVGbPpQoOhAxXWmsNtpOidWuzzfOEvz11WjOe4
