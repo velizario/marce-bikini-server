@@ -52,7 +52,7 @@ export const deleteFromCartAPI = catchAsync(async (req: Request, res: Response) 
   console.log({
     status: "success",
     data: updatedCart.data,
-  })
+  });
 
   res.status(201).json({
     status: "success",
