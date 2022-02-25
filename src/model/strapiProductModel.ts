@@ -27,6 +27,7 @@ export interface StrapiProductAttributes {
   updatedAt: string;
   publishedAt: string;
   color: string;
+  isFeatured: string;
   variations: ProductVariations[];
   images: ProductImages;
   category: Category;

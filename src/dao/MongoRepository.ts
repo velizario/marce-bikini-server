@@ -73,6 +73,7 @@ export class MongoRepository<T> implements Repository<T> {
 
     // execute query
     const data = await query;
+    console.log(data)
     return data;
   }
 

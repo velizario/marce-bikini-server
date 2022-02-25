@@ -10,13 +10,13 @@ const fetchProducts = async () => {
   const res = await fetch(`${DATA_URL}?populate=*`);
   const data = (await res.json()) as StrapiRootObject;
   products = data.data;
+  console.log(products);
   return products;
 };
 fetchProducts();
 
 export const getAllProducts = async (req: Request, res: Response) => {
   await fetchProducts();
-
   res.status(200).json(products);
 };
 
