@@ -7,6 +7,8 @@ import AppError from "./utils/appError";
 import globalErrorHandler from "./controllers/errorController";
 import { UserModel } from "./model/userModel";
 import helmet from "helmet";
+import { mailSubscription } from "./controllers/mailSubscriptionController";
+import subscribeRouter from "./routes/subscribeRouter";
 
 export const app = express();
 
@@ -51,6 +53,7 @@ async function start() {
     next();
   });
 
+
   // Products router
   // app.use("/api/v1/products", productsRouter);
 
@@ -60,9 +63,19 @@ async function start() {
   // Carts Router
   app.use("/api/v1/carts", cartsRouter);
 
+  // Subscribe Router
+  app.use("/api/v1/subscribe", subscribeRouter);
+
+  // Stripe Router
+  app.use("api/v1/payment", paymentRouter)
+
+  
+  // Default router
   app.all("*", (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
   });
+
+  
 
   app.use(globalErrorHandler);
 
