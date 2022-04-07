@@ -15,7 +15,7 @@ interface Pagination {
 }
 
 export interface StrapiProduct {
-  id: number;
+  id: string;
   attributes: StrapiProductAttributes;
 }
 

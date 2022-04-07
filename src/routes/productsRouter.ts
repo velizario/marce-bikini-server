@@ -2,7 +2,7 @@ import * as express from "express";
 import {
   createProduct,
   getAllProducts,
-  getSingleProduct,
+  getProductById,
   updateProduct,
 } from "../controllers/productController";
 
@@ -13,6 +13,6 @@ const router = express.Router();
 // router.param("id", checkId);
 
 router.route("/").get(getAllProducts).post(createProduct);
-router.route("/:id").get(getSingleProduct).patch(updateProduct);
+router.route("/:id").get(getProductById).patch(updateProduct);
 
 export default router;

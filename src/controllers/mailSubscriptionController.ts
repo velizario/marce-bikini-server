@@ -20,5 +20,4 @@ export const mailSubscription = catchAsync (async (req: Request, res: Response, 
           body: JSON.stringify(data),
         }
       );
-      console.log(await query.json());
 })

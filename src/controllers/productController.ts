@@ -1,23 +1,28 @@
 import { Request, Response, NextFunction } from "express";
 import { StrapiProduct, StrapiRootObject } from "../model/strapiProductModel";
-import fetch from "node-fetch";
+
+import { Product } from "../model/productModel";
+import { productHandler } from "../dao/ProductRepository";
 
 const DATA_URL = "http://localhost:1337/api/products";
 let products: StrapiProduct[];
 
-// Fetch products to be sent as response. Code is executed once.This should go into DAO
-const fetchProducts = async () => {
-  const res = await fetch(`${DATA_URL}?populate=*`);
-  const data = (await res.json()) as StrapiRootObject;
-  products = data.data;
-  console.log(products);
-  return products;
-};
-fetchProducts();
 
+export const getProductById = (req: Request, res: Response) => {
+  const id = req.params.id;
+  console.log("getProductById")
+  const data =  productHandler.fetchProductById(id)
+  res.status(200).json(data);
+}
+
+// Getting all Products from Strapi. This is initiated by a POST hook from Strapi server tiggered on entity update via route /strapiapi
 export const getAllProducts = async (req: Request, res: Response) => {
-  await fetchProducts();
-  res.status(200).json(products);
+  await productHandler.fetchProducts();
+  res.status(200).json({
+    status: "success",
+    data: productHandler.products
+});
+
 };
 
 export const createProduct = (req: Request, res: Response) => {
@@ -25,10 +30,6 @@ export const createProduct = (req: Request, res: Response) => {
   res.status(200).json(req.body);
 };
 
-export const getSingleProduct = (req: Request, res: Response) => {
-  // No additional code needed - the product is added through Middleware checkProduct and returned in res.productFound.
-  res.status(200).json(req.body.productFound);
-};
 
 export const updateProduct = (req: Request, res: Response) => {
   // code to update product

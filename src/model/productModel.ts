@@ -12,5 +12,5 @@ import { StrapiProduct, StrapiProductAttributes } from "./strapiProductModel";
 export interface ProductModel extends StrapiProduct {}
 
 export class Product implements StrapiProduct {
-  constructor(public id: number, public attributes: StrapiProductAttributes) {}
+  constructor(public id: string, public attributes: StrapiProductAttributes) {}
 }

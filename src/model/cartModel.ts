@@ -1,4 +1,5 @@
 import mongoose, { Types } from "mongoose";
+import { Product } from "./productModel";
 
 
 // Create UserModel interface
@@ -9,19 +10,19 @@ export interface CartUserModel {
   productId: number;
   size: string;
   quantity: number;
-  _id?: Types.ObjectId;
+  _id: Types.ObjectId;
 }
   
 
 export interface CartDBModel {
   _id: Types.ObjectId;
-  data: CartUserModel[];
+  cartItems: CartUserModel[];
 }
 
 // Create DB Schema
 const cartSchema = new mongoose.Schema<CartDBModel>({
   _id: String,
-  data: [
+  cartItems: [
     {
       productId: String,
       size: String,

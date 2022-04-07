@@ -1,29 +1,36 @@
 import { Request, Response } from "express";
 import catchAsync from "../utils/errorHandler";
 import { cartDBHandler } from "../dao/CartRepository";
-import { CartDBModel } from "../model/cartModel";
+import { CartDBModel, CartUserModel } from "../model/cartModel";
+import { Types } from "mongoose";
 
 
 export const getCart = catchAsync(async (req: Request, res: Response) => {
   const cart = await cartDBHandler.findById(req.params.id);
-  if (!cart) {
+  if (!cart  ) {
     res.status(404);
-  } else
-
+  } 
+  
+  // Request for the cart is different from the logged in user
+  else if (!res || !res.user || res.user._id.toString() !== cart._id.toString()) {
+    res.status(401)
+  }
+    else
   {
     res.status(201).json({
     status: "success",
-    data: cart.data,
+    data: cart.cartItems,
   });}
 });
 
 export const createUpdateCart = catchAsync(async (req: Request, res: Response) => {
+  console.log("Start: createUpdateCart");
   if (!res.user) return new Error("No ID - confirm if authorized")
-  const createObject: CartDBModel = {data: req.body, _id: res.user._id}
+  const createObject: CartUserModel[] = req.body
   const newCart = await cartDBHandler.upsert(res.user._id.toString(), createObject);
   res.status(201).json({
     status: "success",
-    data: newCart.data
+    data: newCart.cartItems
   });
 });
 
@@ -42,21 +49,18 @@ export const updateCart = catchAsync(async (req: Request, res: Response) => {
 
   res.status(201).json({
   status: "success",
-   data: updatedCart.data
+   data: updatedCart.cartItems
   });
 });
 
 export const deleteFromCartAPI = catchAsync(async (req: Request, res: Response) => {
   const updatedCart = await cartDBHandler.deleteFromCart(req.params.id, req.body);
   if(!updatedCart) return new Error("Could not update");
-  console.log({
-    status: "success",
-    data: updatedCart.data,
-  });
+
 
   res.status(201).json({
     status: "success",
-    data: updatedCart.data,
+    data: updatedCart.cartItems,
   });
 });
 

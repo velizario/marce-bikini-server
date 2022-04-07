@@ -9,6 +9,11 @@ import { UserModel } from "./model/userModel";
 import helmet from "helmet";
 import { mailSubscription } from "./controllers/mailSubscriptionController";
 import subscribeRouter from "./routes/subscribeRouter";
+import paymentRouter from "./routes/paymentRouter";
+import productsRouter from "./routes/productsRouter";
+import strapiRouter from "./routes/strapiRouter";
+import { cartDBHandler } from "./dao/CartRepository";
+import stripeKeyRouter from "./routes/stripeKeyRouter";
 
 export const app = express();
 
@@ -54,9 +59,6 @@ async function start() {
   });
 
 
-  // Products router
-  // app.use("/api/v1/products", productsRouter);
-
   // Users Router
   app.use("/api/v1/users", usersRouter);
 
@@ -67,14 +69,26 @@ async function start() {
   app.use("/api/v1/subscribe", subscribeRouter);
 
   // Stripe Router
-  app.use("api/v1/payment", paymentRouter)
+  app.use("/api/v1/payment", paymentRouter);
 
+  // Products Router
+  app.use("/api/v1/products", productsRouter);
+
+  // Strapi hooks Router
+  app.use("/api/v1/strapiapi", strapiRouter);
+
+  // Stripe key
+  app.use("/api/v1/stripePK", stripeKeyRouter)
   
   // Default router
   app.all("*", (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
   });
 
+
+
+  // test only
+  // cartDBHandler.upsertTest()
   
 
   app.use(globalErrorHandler);
