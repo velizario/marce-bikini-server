@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 9000;
 const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASS_PLACEHOLDER,
   process.env.DATABASE_PASSWORD
-);
+); 
 
 mongoose
   .connect(DB, {

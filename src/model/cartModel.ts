@@ -10,7 +10,7 @@ export interface CartUserModel {
   productId: number;
   size: string;
   quantity: number;
-  _id: Types.ObjectId;
+  _id: Types.ObjectId; 
 }
   
 

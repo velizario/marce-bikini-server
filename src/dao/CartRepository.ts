@@ -21,7 +21,7 @@ class CartRepository extends MongoRepository<CartDBModel> {
   // }, 0);
 
   async upsert(id: string, document: CartUserModel[]) {
-    console.log("Start: upsert")
+    console.log("!!!!!!!!!!!!Start: upsert")
     console.log(document)
 
 
@@ -50,9 +50,11 @@ class CartRepository extends MongoRepository<CartDBModel> {
 
 
   async deleteFromCart(id: string, document: CartUserModel) {
+    console.log("!!!!!!!!!!!!Start: deleteFromCart for id ", id)
+    console.log(document)
     const returnedDoc =  await this.model.findByIdAndUpdate(id, { 
         $pull: { 
-          data: { 
+          cartItems: { 
             _id: document._id} 
         } 
       }, 
@@ -60,6 +62,7 @@ class CartRepository extends MongoRepository<CartDBModel> {
         new: true, 
         runValidators: true
       });
+      console.log("!!!!!!!!!!!!End: deleteFromCart")
     return returnedDoc;
     
     //    this.model.findById(id).lean().exec((err: any, collection: any) => {

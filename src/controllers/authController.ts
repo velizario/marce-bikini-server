@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Document } from "mongoose";
+// import { Document } from "mongoose";
 import { Role, UserModel } from "../model/userModel";
 import catchAsync from "../utils/errorHandler";
 import jwt from "jsonwebtoken";

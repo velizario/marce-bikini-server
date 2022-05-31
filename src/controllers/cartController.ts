@@ -53,7 +53,7 @@ export const updateCart = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const deleteFromCartAPI = catchAsync(async (req: Request, res: Response) => {
+export const deleteFromCart = catchAsync(async (req: Request, res: Response) => {
   const updatedCart = await cartDBHandler.deleteFromCart(req.params.id, req.body);
   if(!updatedCart) return new Error("Could not update");
 

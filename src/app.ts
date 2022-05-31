@@ -1,18 +1,16 @@
 import express from "express";
 import { Request, Response, NextFunction } from "express";
+import helmet from "helmet";
 import morgan from "morgan";
-import usersRouter from "./routes/usersRouter";
-import cartsRouter from "./routes/cartsRouter";
+import { UserModel } from "./model/userModel";
 import AppError from "./utils/appError";
 import globalErrorHandler from "./controllers/errorController";
-import { UserModel } from "./model/userModel";
-import helmet from "helmet";
-import { mailSubscription } from "./controllers/mailSubscriptionController";
+import usersRouter from "./routes/usersRouter";
+import cartsRouter from "./routes/cartsRouter";
 import subscribeRouter from "./routes/subscribeRouter";
 import paymentRouter from "./routes/paymentRouter";
 import productsRouter from "./routes/productsRouter";
 import strapiRouter from "./routes/strapiRouter";
-import { cartDBHandler } from "./dao/CartRepository";
 import stripeKeyRouter from "./routes/stripeKeyRouter";
 
 export const app = express();
@@ -85,11 +83,6 @@ async function start() {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
   });
 
-
-
-  // test only
-  // cartDBHandler.upsertTest()
-  
 
   app.use(globalErrorHandler);
 
