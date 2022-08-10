@@ -7,5 +7,5 @@ const router = express.Router();
 
 router.route("/").post(getAllProducts)
 
-
+ 
 export default router;

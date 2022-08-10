@@ -12,6 +12,8 @@ import paymentRouter from "./routes/paymentRouter";
 import productsRouter from "./routes/productsRouter";
 import strapiRouter from "./routes/strapiRouter";
 import stripeKeyRouter from "./routes/stripeKeyRouter";
+import mailRouter from "./routes/mailRouter"
+import { mailSend } from "./controllers/mailSendController";
 
 export const app = express();
 
@@ -77,6 +79,9 @@ async function start() {
 
   // Stripe key
   app.use("/api/v1/stripePK", stripeKeyRouter)
+
+  // Mail router
+  app.use("/api/v1/mailSend", mailRouter)
   
   // Default router
   app.all("*", (req, res, next) => {
@@ -94,6 +99,7 @@ async function start() {
   // app.post("/api/v1/products", createProduct);
   // Defines Route for HTTP method 'patch' and for path '/api/v1/products'. Updates existing product
   // app.patch("/api/v1/products/:id", updateProduct);
+
 }
 
 start();
